@@ -1,6 +1,6 @@
 //criar a classe player
 //criar aliens
-//fazer o player se mover no eixo x
+
 //commitar as branches 
 
 const canvas = document.getElementById('JogoCanvas')
@@ -45,12 +45,23 @@ class Player extends Entidade {
         if (this.x < 0) this.x = 0;
     }
 
-    moverDireita(){
+    moverDireita() {
         this.x += this.#velocidade_x
-        if(this.x = this.largura > canvas.width) this.x = canvas.width - this.largura;  ""
+        if (this.x = this.largura > canvas.width) this.x = canvas.width - this.largura;
     }
 }
 
+class Aliens extends Entidade {
+    #velocidade_y
+    constructor(x, y, largura, altura, cor) {
+        super(x, y, altura, largura, cor);
+        this.#velocidade_y = -2
+    }
+
+    cair() {
+        this.y -= this.#velocidade_y
+    }
+}
 
 const objeto_na_tela = new Entidade(50, 50, 50, 50, 'red')
 
@@ -58,7 +69,7 @@ const objeto_na_tela = new Entidade(50, 50, 50, 50, 'red')
 function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     objeto_na_tela.desenhar()
-    //inserir as funções de desenhar, atualizar, colisão aqui
+    Aliens.cair()
     requestAnimationFrame(loop)
 }
 loop()
